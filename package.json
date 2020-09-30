@@ -6,7 +6,7 @@
   "scripts": {
     "client": "webpack-dev-server --open",
     "server": "nodemon server/server.js",
-    "dev": "npm run client & npm run server" 
+    "dev": "npm run client & npm run server"
   },
   "keywords": [],
   "author": "",
@@ -21,8 +21,11 @@
     "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
+    "css-loader": "^4.3.0",
     "express": "^4.17.1",
+    "nodemon": "^2.0.4",
     "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "react-dom": "^16.13.1",
+    "style-loader": "^1.2.1"
   }
 }

@@ -20,12 +20,19 @@ class App extends React.Component {
         // .map(part => part.slice(4));
         console.log(result);
       });
+    let progressPct = 40;
   }
 
   render() {
     return (
       <div>
-        <h1>App</h1>
+        <h1>Progress Tracker</h1>
+        <label for='progress'>Unit progress: </label>
+        <progress id='progress' value='20' max='100'>
+          {" "}
+          32%{" "}
+        </progress>
+
         {/* {bulletPoints.map((bullet) => (
           <Bullet />
         ))} */}

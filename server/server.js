@@ -9,7 +9,7 @@ const app = express();
 app.get("/api/md", (req, res) => {
   const md = fs.readFileSync(
     path.resolve(__dirname, "./docs/README.md"),
-    "utf-8"
+    "UTF-8"
   );
   res.json(md);
 });
