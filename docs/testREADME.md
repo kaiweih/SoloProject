@@ -1,3 +1,5 @@
+TEST README
+
 # Overview
 
 // Webpack Dev server 8080 is for front end. 3000 is backend for development.
@@ -132,4 +134,5 @@ Notice that our code is not minified/uglified. Check this by looking at `browser
 
 Extension:
 Set up a development environment for Gulp with Browserify that can be ran with `npm run gulp-dev`. Utilize `watchify` on the `browserify` instance. You'll have to set up a Gulp task called `dev` (which matches the task name that Gulp calls in our script for `npm run gulp-dev`). Define an event handler on the watchified browserify instance so that on `update` that the bundler re-runs the Babel/Sass transpilations and pipes the results to the destination folder with the correct destination file name. Make sure that in this task that we don't perform uglification. Note that this development environment is not taking advantage of live-reloading (because we are not utilizing a dev server with a websocket under the hood) so we have to refresh the page to see changes.
+
 # SoloProject
