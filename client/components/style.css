@@ -7,3 +7,16 @@ p {
 body {
   background-color: #80d2c6;
 }
+
+.helpButton {
+  margin: 0.1rem;
+}
+
+span {
+  color: #e55800;
+  margin: 0.3rem;
+}
+
+label {
+  margin-top: 0.1rem;
+}

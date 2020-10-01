@@ -4,8 +4,6 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      helperCount: 0,
-      progressPct: 0,
       readme: "",
       bulletPoints: [
         {
@@ -16,6 +14,7 @@ class App extends React.Component {
           isNeedHelpClick: false,
           isCanHelpClick: false,
           isClicked: false,
+          isChecked: false,
         },
         {
           task:
@@ -25,6 +24,7 @@ class App extends React.Component {
           isNeedHelpClick: false,
           isCanHelpClick: false,
           isClicked: false,
+          isChecked: false,
         },
         {
           task:
@@ -34,6 +34,7 @@ class App extends React.Component {
           isNeedHelpClick: false,
           isCanHelpClick: false,
           isClicked: false,
+          isChecked: false,
         },
         {
           task:
@@ -43,29 +44,37 @@ class App extends React.Component {
           isNeedHelpClick: false,
           isCanHelpClick: false,
           isClicked: false,
+          isChecked: false,
         },
       ],
     };
-
-    this.handleSubmit = this.handleSubmit.bind(this);
+    //bind methods
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  // catch what's pasted in testarea into this.state.readme
   handleChange(event) {
     const { value } = event.target;
-    this.setState({ readme: value });
+    this.setState({
+      ...this.state,
+      readme: value,
+    });
   }
 
+  //defind what the submit button does
+  //catch the content from readme and parse it into bulletpoints
   handleSubmit(event) {
     event.preventDefault();
-
     const bulletPoints = this.state.readme
       .split("\n")
       .filter((part) => part.includes("- [ ] "))
       .map((part) => part.slice(6));
-
-    this.setState({ bulletPoints });
-
+    console.log(bulletPoints);
+    this.setState({
+      ...this.state,
+      bulletPoints: bulletPoints,
+    });
     // from bulletpoints, we render a list of Task
     // bulletpoints = []
   }
@@ -130,6 +139,7 @@ class App extends React.Component {
   //  this.state.bulletPoints.length
 
   render() {
+    // calculateds total tasks done
     const totalCanHelps = this.state.bulletPoints.reduce((total, task) => {
       if (task.isCanHelpClick) total += 1;
       return total;
@@ -143,6 +153,7 @@ class App extends React.Component {
       <Task
         key={bulletPoint.task}
         bulletPoint={bulletPoint}
+        totalCanHelps={totalCanHelps}
         updateNeedHelp={() => this.updateNeedHelp(bulletPoint.task)}
         updateCanHelp={() => this.updateCanHelp(bulletPoint.task)}
       />
@@ -151,6 +162,7 @@ class App extends React.Component {
     return (
       <div>
         <UnitProgress value={percentage} max={100} />
+        <br></br>
         {tasks}
         <form onSubmit={this.handleSubmit}>
           <br></br>
@@ -171,6 +183,7 @@ class App extends React.Component {
   }
 }
 
+// shows the checkbox and bulletpoints and tasks
 class Task extends React.Component {
   constructor() {
     super();
@@ -199,21 +212,27 @@ class Task extends React.Component {
         <label for='task1'>{this.props.bulletPoint.task}</label>
 
         <div>
-          <button onClick={this.props.updateNeedHelp}>I need help</button>
-          <span>{this.props.bulletPoint.numsOfNeedHelp}</span>
-          <button onClick={this.props.updateCanHelp}>I can help</button>
-          <span>{this.props.bulletPoint.numsOfCanHelp}</span>
+          <button onClick={this.props.updateNeedHelp} class='helpButton'>
+            I need help
+          </button>
+          <span>{`${this.props.bulletPoint.numsOfNeedHelp} people in your cohort need help on this one...🥺`}</span>
+          <br></br>
+          <button onClick={this.props.updateCanHelp} class='helpButton'>
+            I can help
+          </button>
+          <span>{`${this.props.bulletPoint.numsOfCanHelp} people in your cohort available to help out...🤓`}</span>
         </div>
       </div>
     );
   }
 }
 
+// shows progress bar
 class UnitProgress extends React.Component {
   render() {
     return (
       <div>
-        <h1>Progress Tracker</h1>
+        <h1>🌕Progress Tracker🥮🌝</h1>
         <label for='progress'>Unit progress: </label>
         <progress
           id='progress'
@@ -226,25 +245,3 @@ class UnitProgress extends React.Component {
 }
 
 export default App;
-
-// class App extends React.Component {
-//   componentDidMount() {
-//     // without proxy in webpack.config.js,
-//     // it will make a request to http://localhost:8080/api/md
-//     fetch("/api/md")
-//       .then((response) => {
-//         return response.json();
-//       })
-//       .then((response) => {
-//         // response is .md content
-//         // parse it with your own logic
-//         // setState
-//         // pass parsed text to other components to render
-//         // console.log(response);
-//         const result = response
-//           .split("\n")
-//           .filter((part) => part.includes("- [ ]"));
-//         // .map(part => part.slice(4));
-//         console.log(result);
-//       });
-//   }
