@@ -1,8 +1,9 @@
 h1,
-label {
-  color: #3acd84;
+label,
+p {
+  color: #363334;
 }
 
 body {
-  background-color: #104a58;
+  background-color: #80d2c6;
 }

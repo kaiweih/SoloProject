@@ -1,21 +1,4 @@
-TEST README
-
 # Overview
-
-// Webpack Dev server 8080 is for front end. 3000 is backend for development.
-// in production code, the client will make a get request to server.js. only one port for production code FE+BE
-
-// 2 servers: 1 frontend, 1 backend for development
-// option 1: run with 2 commands
-// webpack-dev-server: front-end
-// nodemon server/server.js: backend
-
-// If you want to run 2 servers at the same time with just one command:
-// solution 1: webpack-dev-server && nodemon server/server.js
-// problem: not work b/c FE make a req to backend before we even have our back end set up and running
-
-// solution 2: currently \"front-end\" \"server\"
-// solution 2: "dev": 'currently \"webpack-dev-server\" \"nodemon server/server.js\"' --> npm run dev
 
 The Build Tool unit presents the challenge to create the tools and environment needed to work on a modern frontend project, especially a React project. Tooling is highly customizable and determined by the team, the project, and the technologies used. Gaining familiarity with how they work and how to use them empowers you to control all aspects of your projects and to be ready to adopt the tools of any team you join.
 
@@ -23,10 +6,10 @@ You will build tools using the [Webpack](https://webpack.js.org/) module bundler
 
 ### Learning Goals
 
-- [ ] Learn how to use Webpack in production mode for a React project
-- [ ] Learn how to use Webpack-dev-server in development mode for fast development and live-reloading
-- [ ] Utilize the proxy setting in Webpack-dev-server for utilizing an Express API server (back end) in combination with a React project (front end) for a streamlined codebase in both production and development mode
-- [ ] Learn how to use Gulp with Browserify to start a project in React as an alternative tool
+- Learn how to use Webpack in production mode for a React project
+- Learn how to use Webpack-dev-server in development mode for fast development and live-reloading
+- Utilize the proxy setting in Webpack-dev-server for utilizing an Express API server (back end) in combination with a React project (front end) for a streamlined codebase in both production and development mode
+- Learn how to use Gulp with Browserify to start a project in React as an alternative tool
 
 ## Getting Started
 
@@ -96,8 +79,8 @@ Now run webpack-dev-server. Notice that the frontend fetch request returns a 404
 
 The domain we are in is `localhost:8080` i.e. the dev server. The server API that responds to `/api/leaders` is our express server on `localhost:3000`. We therefore need to do two things:
 
-1. In our npm script for `dev`, we need to run webpack-dev-server at the same time the express server runs (the express server is run preferably using nodemon rather than node). We can do this in just one npm script for `dev` - no need to run `npm start`. Simply write one npm script for `dev` that runs both webpack-dev-server and the express server at the same time. Windows users may have to do this using the [concurrently](https://www.npmjs.com/package/concurrently) module.
-2. We need to set the `proxy` setting within `devServer` in `webpack.config.js`. Search the [documentation](https://webpack.js.org/configuration/dev-server/). The proxy setting allows the request for `/api/leaders`, which would normally be for the domain `localhost:8080`, to be instead made for the domain `localhost:3000`. Thus, instead of the request for `/api/leaders` being made to `localhost:8080/api/leaders`, the request for `/api/leaders` is made to `localhost:3000/api/leaders`.
+- [ ] In our npm script for `dev`, we need to run webpack-dev-server at the same time the express server runs (the express server is run preferably using nodemon rather than node). We can do this in just one npm script for `dev` - no need to run `npm start`. Simply write one npm script for `dev` that runs both webpack-dev-server and the express server at the same time. Windows users may have to do this using the [concurrently](https://www.npmjs.com/package/concurrently) module.
+- [ ] We need to set the `proxy` setting within `devServer` in `webpack.config.js`. Search the [documentation](https://webpack.js.org/configuration/dev-server/). The proxy setting allows the request for `/api/leaders`, which would normally be for the domain `localhost:8080`, to be instead made for the domain `localhost:3000`. Thus, instead of the request for `/api/leaders` being made to `localhost:8080/api/leaders`, the request for `/api/leaders` is made to `localhost:3000/api/leaders`.
 
 We thus now have the ability to make a call to our express API server in development mode! The server structure is as follows. In production, there is only one express server. This server severs the `index.html`, `bundle.js`, and JSON data API. In development, there are two servers: the webpack-dev-server and the express server. The webpack-dev-server is responsible for the frontend html page and React bundle. The express server is merely responsible for the JSON data API. This model of one sever for production and two servers for development is common in React projects, and projects that need to be bundled with Webpack in general.
 
@@ -105,9 +88,9 @@ One final piece of best practice is recommended. In the code for `server.js`, th
 
 Other extensions:
 
-- [ ] Implement the [Extract-Text-Webpack-Plugin](https://github.com/webpack-contrib/extract-text-webpack-plugin) in production so that styles are not inlined in bundle.js, but rather placed in a separate styles.css file that can be loaded in parallel to the JS bundle. This improves the performance of the initial page load in production if we have a large amount of CSS. A great deal of effort in frontend web performance is dedicated towards making the initial page load fast, so that users are less likely to initially leave the web page.
-- [ ] Implement Hot Module Replacement. [HMR](https://webpack.js.org/concepts/hot-module-replacement/) is the ability to make changes in to modules in webpack-dev-server without needing a full refresh of the browser. This improves our experience in development.
-- [ ] Use Webpack to minify images: jpg are usually compressed before being deployed. Download some high-res images [like this bird](https://commons.wikimedia.org/wiki/Category:Colorful_birds#/media/File:Schwarzk%C3%B6pfchen.JPG) and add to the `index.html`. Use a tool to minify/compress the jpg so that load time is quicker on the `index.html`.
+- Implement the [Extract-Text-Webpack-Plugin](https://github.com/webpack-contrib/extract-text-webpack-plugin) in production so that styles are not inlined in bundle.js, but rather placed in a separate styles.css file that can be loaded in parallel to the JS bundle. This improves the performance of the initial page load in production if we have a large amount of CSS. A great deal of effort in frontend web performance is dedicated towards making the initial page load fast, so that users are less likely to initially leave the web page.
+- Implement Hot Module Replacement. [HMR](https://webpack.js.org/concepts/hot-module-replacement/) is the ability to make changes in to modules in webpack-dev-server without needing a full refresh of the browser. This improves our experience in development.
+- Use Webpack to minify images: jpg are usually compressed before being deployed. Download some high-res images [like this bird](https://commons.wikimedia.org/wiki/Category:Colorful_birds#/media/File:Schwarzk%C3%B6pfchen.JPG) and add to the `index.html`. Use a tool to minify/compress the jpg so that load time is quicker on the `index.html`.
 
 ## Extension: Build tools challenge: Gulp with Browserify
 
@@ -134,5 +117,3 @@ Notice that our code is not minified/uglified. Check this by looking at `browser
 
 Extension:
 Set up a development environment for Gulp with Browserify that can be ran with `npm run gulp-dev`. Utilize `watchify` on the `browserify` instance. You'll have to set up a Gulp task called `dev` (which matches the task name that Gulp calls in our script for `npm run gulp-dev`). Define an event handler on the watchified browserify instance so that on `update` that the bundler re-runs the Babel/Sass transpilations and pipes the results to the destination folder with the correct destination file name. Make sure that in this task that we don't perform uglification. Note that this development environment is not taking advantage of live-reloading (because we are not utilizing a dev server with a websocket under the hood) so we have to refresh the page to see changes.
-
-# SoloProject
